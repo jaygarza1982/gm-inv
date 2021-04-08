@@ -1,0 +1,14 @@
+version: '3'
+
+services:
+    api-server:
+        container_name: "gm-inv-api-server"
+        build:
+            context: .
+        volumes:
+            - ./:/app
+            - ./node_modules:/app/node_modules
+        ports:
+            - 3001:3000
+            - 9229:9229
+        
