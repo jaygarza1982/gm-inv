@@ -39,6 +39,10 @@ const ItemInput = props => {
         setValue(e.target.value);
     }
 
+    const saveStatus = () => {
+        //TODO: Post logic of items status
+    }
+
     useEffect(() => {
         fetch('/api/items/used').then(resp => {
             resp.json().then(json => {
@@ -55,7 +59,7 @@ const ItemInput = props => {
                 <FormLabel component='legend'>Mark {itemName} as...</FormLabel>
                 <RadioGroup row aria-label='status' name='status' value={value} onChange={handleSetMark}>
                     <FormControlLabel value='Used' control={<Radio />} label='Used' />
-                    <FormControlLabel value='Broken' control={<Radio />} label='Broken' />
+                    <FormControlLabel value='Down' control={<Radio />} label='Down' />
                 </RadioGroup>
             </FormControl>
 
@@ -69,6 +73,7 @@ const ItemInput = props => {
                 className={classes.saveButton}
                 variant='contained'
                 startIcon={ <Save /> }
+                onClick={saveStatus}
             >
                 Mark {value}
             </Button>
