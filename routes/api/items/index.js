@@ -1,8 +1,8 @@
 var express = require('express');
 var router = express.Router();
 
-router.get('/used', (req, res) => {
-    res.send({ status: 'OK' });
-});
+const { addStatus } = require('../../../controllers/items');
+
+router.get('/add-status/:item/:status', addStatus);
 
 module.exports = router;
