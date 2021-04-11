@@ -2,6 +2,16 @@ const csv = require('csv-parser');
 const fs = require('fs');
 const stringify = require('csv-stringify');
 
+exports.getFilePath = date => {
+    const year = date.getFullYear();
+    const month = date.getMonth();
+    
+    //year - 0month if month < 10, month if not
+    const filename = `${year}-${month < 10 ? '0' : ''}${month}.csv`;
+
+    return `${process.env.DATA_FOLDER}/${filename}`;
+}
+
 exports.readCSV = (filePath, callback) => {
     let results = [];
 

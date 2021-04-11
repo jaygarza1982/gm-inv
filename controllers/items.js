@@ -1,15 +1,5 @@
 const fs = require('fs');
-const { readCSV, writeCSV, appendCSV } = require('../services/CSV.service');
-
-const getFilePath = date => {
-    const year = date.getFullYear();
-    const month = date.getMonth();
-    
-    //year - 0month if month < 10, month if not
-    const filename = `${year}-${month < 10 ? '0' : ''}${month}.csv`;
-
-    return `${process.env.DATA_FOLDER}/${filename}`;
-}
+const { readCSV, writeCSV, appendCSV, getFilePath } = require('../services/CSV.service');
 
 exports.addStatus = (req, res) => {
     const { item, status } = req.params;

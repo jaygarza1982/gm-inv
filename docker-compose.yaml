@@ -10,6 +10,8 @@ services:
             - /app/node_modules
         ports:
             - 3001:3000
+            #Debug ports, can be removed in prod
             - 9229:9229
         environment: 
             - DATA_FOLDER=/app/csv-files
+            - API_KEY=api_key_123_make_secure

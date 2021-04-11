@@ -3,15 +3,19 @@
   "version": "0.0.0",
   "private": true,
   "scripts": {
-    "start": "nodemon --inspect=0.0.0.0 ./bin/www"
+    "start": "nodemon --inspect=0.0.0.0 ./bin/www",
+    "test": "mocha --bail --debug-brk=5858 ./tests --recursive"
   },
   "dependencies": {
+    "chai": "^4.3.4",
     "cookie-parser": "~1.4.4",
     "csv-parser": "^3.0.0",
     "csv-stringify": "^5.6.2",
     "debug": "~2.6.9",
     "express": "~4.16.1",
+    "mocha": "^8.3.2",
     "morgan": "~1.9.1",
-    "nodemon": "^2.0.7"
+    "nodemon": "^2.0.7",
+    "supertest": "^6.1.3"
   }
 }
