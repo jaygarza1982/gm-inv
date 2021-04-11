@@ -1,43 +1,26 @@
 const fs = require('fs');
-const { readCSV, writeCSV, appendCSV, getFilePath } = require('../services/CSV.service');
+
+const { updateOrInsert } = require('../services/Mongo.service');
+
+const getCollectionName = date => {
+    const year = date.getFullYear();
+    const month = date.getMonth();
+    
+    //year - 0month if month < 10, month if not
+    return`${year}-${month < 10 ? '0' : ''}${month}`;
+}
 
 exports.addStatus = (req, res) => {
-    const { item, status } = req.params;
+    const { apiKey, item, status } = req.params;
 
-    //Check if our file exists
-    const filePath = getFilePath(new Date());
+    if (process.env.API_KEY != apiKey) return res.status(401).send('Invalid API key. Please contact your app admin.');
 
-    //If our file exists
-    if (fs.existsSync(filePath)) {
-        //Read file, check if item exists already
-        readCSV(filePath, (err, readItems) => {
-            if (err) {
-                console.log(err);
-                res.status(500).send(err);
-            }
-            
-            let foundItem = readItems.find(i => i.Item === item);
-
-            //If we found our item, modify and rewrite CSV file
-            if (foundItem) {
-                foundItem.Status = status;
-
-                writeCSV(filePath, readItems, err => {
-                    err ? res.status(500).send(err) : res.send({ status: 'OK' });
-                });
-            }
-            else {
-                //If we did not find our item, we will just insert the status
-                appendCSV(filePath, false, { Item: item, Status: status }, err => {
-                    err ? res.status(500).send(err) : res.send({ status: 'OK' });
-                });
-            }
-        });
-    }
-    else {
-        //If our file does not exist, insert our item and status
-        appendCSV(filePath, true, { Item: item, Status: status }, err => {
+    updateOrInsert(
+        getCollectionName(new Date()),
+        { Item: item },
+        { Item: item, Status: status },
+        (err, result) => {
             err ? res.status(500).send(err) : res.send({ status: 'OK' });
-        });
-    }
+        }
+    );
 }

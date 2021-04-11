@@ -15,3 +15,15 @@ services:
         environment: 
             - DATA_FOLDER=/app/csv-files
             - API_KEY=api_key_123_make_secure
+            - MONGO_USERNAME=root
+            - MONGO_PASSWORD=M4k3Th15Sup3RS3cur3!!
+    mongo:
+        container_name: "gm-inv-mongo"
+        image: mongo:4.0.23-xenial
+        ports:
+            - "27018:27017"
+        volumes:
+            - ./mongoDB:/data/db
+        environment:
+            MONGO_INITDB_ROOT_USERNAME: root
+            MONGO_INITDB_ROOT_PASSWORD: M4k3Th15Sup3RS3cur3!!

@@ -3,6 +3,6 @@ var router = express.Router();
 
 const { addStatus } = require('../../../controllers/items');
 
-router.get('/add-status/:item/:status', addStatus);
+router.get('/add-status/:apiKey/:item/:status', addStatus);
 
 module.exports = router;

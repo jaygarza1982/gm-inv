@@ -7,6 +7,7 @@ import FormControl from '@material-ui/core/FormControl';
 import FormLabel from '@material-ui/core/FormLabel';
 import Button from '@material-ui/core/Button';
 import { Save } from '@material-ui/icons';
+import { withSnackbar } from 'notistack';
 
 const useStyles = makeStyles({
     root: {
@@ -24,6 +25,7 @@ const useStyles = makeStyles({
     saveButton: {
         marginTop: '50px',
         width: '65%',
+        maxWidth: '350px',
         color: '#fff'
     }
 });
@@ -40,16 +42,17 @@ const ItemInput = props => {
     }
 
     const saveStatus = () => {
-        //TODO: Post logic of items status
-    }
-
-    useEffect(() => {
-        fetch('/api/items/used').then(resp => {
+        //TODO: Add snackbars
+        fetch(`/api/items/add-status/${apiKey}/${itemName}/${value}/`).then(resp => {
             resp.json().then(json => {
-                console.log(json);
+                // props.enqueueSnackbar(`Successfully saved ${}`)
+            }).catch(err => {
+
             });
+        }).catch(err => {
+
         });
-    }, []);
+    }
 
     return (
         <div className={classes.root}>
@@ -81,4 +84,4 @@ const ItemInput = props => {
     );
 };
   
-export default ItemInput;
+export default withSnackbar(ItemInput);
