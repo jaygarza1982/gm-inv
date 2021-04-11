@@ -12,13 +12,20 @@ const getCollectionName = date => {
     return`${year}-${month < 10 ? '0' : ''}${month}`;
 }
 
+const getYMD = date => {
+    return date.toISOString().split('T')[0];
+}
+
 exports.addStatus = (req, res) => {
     const { item, status } = req.params;
 
+    const currentDate = new Date();
+    const YMD = getYMD(currentDate);
+
     updateOrInsert(
-        getCollectionName(new Date()),
-        { Item: item },
-        { Item: item, Status: status },
+        getCollectionName(currentDate),
+        { Item: item, Date: YMD },
+        { Item: item, Status: status, Date: YMD },
         (err, result) => {
             err ? res.status(500).send(err) : res.send({ status: 'OK' });
         }

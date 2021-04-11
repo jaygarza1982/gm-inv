@@ -33,7 +33,9 @@ exports.listCollections = callback => {
         }
 
         client.db(dbName).listCollections().toArray((err, collections) => {
-            return callback(err, collections?.map(collection => collection?.name));
+            return callback(err, collections?.map(collection => {
+                return { date: collection?.name }
+            }));
         });
     });
 }
