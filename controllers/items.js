@@ -1,6 +1,8 @@
 const fs = require('fs');
 
-const { updateOrInsert } = require('../services/Mongo.service');
+const { updateOrInsert, listCollections, queryProjection } = require('../services/Mongo.service');
+
+const { writeCSV } = require('../services/CSV.service');
 
 const getCollectionName = date => {
     const year = date.getFullYear();
@@ -11,9 +13,7 @@ const getCollectionName = date => {
 }
 
 exports.addStatus = (req, res) => {
-    const { apiKey, item, status } = req.params;
-
-    if (process.env.API_KEY != apiKey) return res.status(401).send('Invalid API key. Please contact your app admin.');
+    const { item, status } = req.params;
 
     updateOrInsert(
         getCollectionName(new Date()),
@@ -23,4 +23,26 @@ exports.addStatus = (req, res) => {
             err ? res.status(500).send(err) : res.send({ status: 'OK' });
         }
     );
+}
+
+exports.list = (req, res) => {
+    listCollections((err, collections) => {
+        err ? res.status(500).send(err) : res.send(collections);
+    });
+}
+
+exports.download = (req, res) => {
+    const { items } = req.params;
+
+    queryProjection(items, {}, {}, (err, itemList) => {
+        const filePath = `${process.env.DATA_FOLDER}/${items}.csv`;
+
+        writeCSV(filePath, itemList, err => {
+            err ? res.status(500).send(`Could not write CSV. Reason ${JSON.stringify(err)}`):
+
+            res.download(filePath, `${items}.csv`, err => {
+                if (err) res.status(500).send(`Could not send file. Reason ${JSON.stringify(err)}`);
+            });
+        });
+    });
 }
