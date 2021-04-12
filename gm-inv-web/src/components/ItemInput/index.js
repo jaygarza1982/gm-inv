@@ -8,15 +8,16 @@ import FormLabel from '@material-ui/core/FormLabel';
 import Button from '@material-ui/core/Button';
 import { Save } from '@material-ui/icons';
 import { withSnackbar } from 'notistack';
+import { useParams, withRouter } from 'react-router-dom';
 
 const useStyles = makeStyles({
     root: {
-        position: 'absolute',
-        left: '50%',
-        top: '35%',
-        transform: 'translate(-50%, -50%)',
-        WebkitTransform: 'translate(-50%, -50%)',
-        width: '100%'
+        // position: 'absolute',
+        // left: '50%',
+        // top: '35%',
+        // transform: 'translate(-50%, -50%)',
+        // WebkitTransform: 'translate(-50%, -50%)',
+        // width: '100%'
     },
     itemTitle: {
         margin: '40px 0px 40px 0px',
@@ -33,7 +34,7 @@ const useStyles = makeStyles({
 const ItemInput = props => {
     const classes = useStyles();
 
-    const { apiKey, itemName } = props.match.params;
+    const { apiKey, itemName } = useParams();
 
     const [value, setValue] = React.useState('Used');
 
@@ -84,4 +85,4 @@ const ItemInput = props => {
     );
 };
   
-export default withSnackbar(ItemInput);
+export default withRouter(withSnackbar(ItemInput));

@@ -2,10 +2,10 @@ import { withSnackbar } from 'notistack';
 import React, { useEffect } from 'react';
 import MaterialTable from 'material-table';
 import TableIcons from '../TableIcons';
-import { Link } from 'react-router-dom';
+import { Link, useParams, withRouter } from 'react-router-dom';
 
 const ItemList = props => {
-    const { apiKey } = props.match.params;
+    const { apiKey } = useParams();
 
     const [items, setItems] = React.useState([]);
 
@@ -43,4 +43,4 @@ const ItemList = props => {
     );
 }
 
-export default withSnackbar(ItemList);
+export default withRouter(withSnackbar(ItemList));
