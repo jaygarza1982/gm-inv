@@ -6,7 +6,7 @@ const { writeCSV } = require('../services/CSV.service');
 
 const getCollectionName = date => {
     const year = date.getFullYear();
-    const month = date.getMonth();
+    const month = date.getMonth() + 1;
     
     //year - 0month if month < 10, month if not
     return`${year}-${month < 10 ? '0' : ''}${month}`;
