@@ -4,7 +4,7 @@ import Navbar from '../Navbar';
 export const Layout = (props) => {
     return (
         //For navbar
-        <div style={{ position: 'relative' }}>
+        <div>
             <div>{props.children}</div>
             <Navbar />
         </div>
