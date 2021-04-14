@@ -9,7 +9,7 @@ services:
             - ./:/app
             - /app/node_modules
         ports:
-            - 3001:3000
+            - 3001:3005
             #Debug ports, can be removed in prod
             - 9229:9229
         environment: 
@@ -27,3 +27,14 @@ services:
         environment:
             MONGO_INITDB_ROOT_USERNAME: root
             MONGO_INITDB_ROOT_PASSWORD: M4k3Th15Sup3RS3cur3!!
+    react-app:
+        container_name: "gm-inv-web"
+        build:
+            context: gm-inv-web
+        volumes:
+            - ./gm-inv-web:/app
+            - /app/node_modules
+        ports:
+            - 3000:3000
+        environment:
+            - CHOKIDAR_USEPOLLING=true
