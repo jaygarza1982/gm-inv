@@ -2,7 +2,8 @@ import { withSnackbar } from 'notistack';
 import React, { useEffect } from 'react';
 import MaterialTable from 'material-table';
 import TableIcons from '../TableIcons';
-import { Link, useParams, withRouter } from 'react-router-dom';
+import { useParams, withRouter } from 'react-router-dom';
+import { Button } from '@material-ui/core';
 
 const ItemList = props => {
     const { apiKey } = useParams();
@@ -24,6 +25,19 @@ const ItemList = props => {
         });
     }, [])
 
+    const downloadItems = date => {
+        fetch(`/api/items/download/${apiKey}/${date}`).then(resp => {
+            resp.blob().then(blob => {
+                //Download file
+                let url = window.URL.createObjectURL(blob);
+                let a = document.createElement('a');
+                a.href = url;
+                a.download = `${date}.csv`;
+                a.click();
+            });
+        });
+    }
+
     return (
         <>
             <h2>Item List</h2>
@@ -33,7 +47,15 @@ const ItemList = props => {
                 columns={
                     [
                         { title: 'Date', field: 'date', render: rowData => {
-                            return <Link to={rowData.date}>{rowData.date}</Link>
+                            return (
+                                <Button
+                                    onClick={() => { downloadItems(rowData.date) }}
+                                    variant='contained'
+                                    color='primary'
+                                >
+                                    {rowData.date}
+                                </Button>
+                            )
                         }}
                     ]
                 }
