@@ -2,10 +2,7 @@ import React from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import BottomNavigation from '@material-ui/core/BottomNavigation';
 import BottomNavigationAction from '@material-ui/core/BottomNavigationAction';
-import RestoreIcon from '@material-ui/icons/Restore';
 import CropFree from '@material-ui/icons/CropFree';
-import FavoriteIcon from '@material-ui/icons/Favorite';
-import LocationOnIcon from '@material-ui/icons/LocationOn';
 import FormatListNumbered from '@material-ui/icons/FormatListNumbered';
 import { Link, withRouter, useParams } from 'react-router-dom';
 
@@ -36,7 +33,7 @@ const Navbar = props => {
         >
             <BottomNavigationAction
                 component={Link}
-                to={'test'}
+                to={`/qr-page/${apiKey}`}
                 label='Make QR'
                 icon={ <CropFree /> }
             />

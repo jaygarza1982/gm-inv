@@ -2,8 +2,8 @@ import './App.css';
 import ItemInput from './components/ItemInput';
 import {Switch, Route } from 'react-router-dom';
 import ItemList from './components/ItemList';
-import Navbar from './components/Navbar';
 import Layout from './components/Layout';
+import QRPage from './components/QRPage';
 
 function App() {
   return (
@@ -17,6 +17,11 @@ function App() {
         <Route path='/item-list/:apiKey'>
           <Layout>
             <ItemList />
+          </Layout>
+        </Route>
+        <Route path='/qr-page/:apiKey?'>
+          <Layout>
+            <QRPage />
           </Layout>
         </Route>
       </Switch>
