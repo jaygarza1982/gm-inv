@@ -2,3 +2,4 @@ node_modules
 mongoDB
 gm-inv-web/node_modules
 gm-inv-web/src
+csv-files
