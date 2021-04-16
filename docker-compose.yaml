@@ -27,14 +27,9 @@ services:
         environment:
             MONGO_INITDB_ROOT_USERNAME: root
             MONGO_INITDB_ROOT_PASSWORD: M4k3Th15Sup3RS3cur3!!
-    react-app:
-        container_name: "gm-inv-web"
+    frontend:
+        container_name: "gm-inv-frontend"
         build:
-            context: gm-inv-web
-        volumes:
-            - ./gm-inv-web:/app
-            - /app/node_modules
+            context: ./gm-inv-web
         ports:
-            - 3000:3000
-        environment:
-            - CHOKIDAR_USEPOLLING=true
+            - 80:80

@@ -1,18 +1,17 @@
-FROM node:14-alpine
+#Build frontend web server
+FROM node:14-alpine as build
 
 WORKDIR /app
 
-#Add /app/node_modules/.bin to $PATH
-ENV PATH /app/node_modules/.bin:$PATH
+COPY ./package.json /app/package.json
+COPY ./package-lock.json /app/package-lock.json
 
-#Install app dependencies
-COPY package.json ./
-COPY package-lock.json ./
-RUN npm install --silent
-RUN npm install react-scripts@3.4.1 -g --silent
+RUN npm install
 
-#Add app code to image
-COPY . ./
+COPY . .
 
-#Start app
-CMD ["npm", "start"]
+#Build web server with built react app
+FROM nginx:1.19
+
+COPY ./nginx/nginx.conf /etc/nginx/conf.d/default.conf
+COPY --from=build /app/build /usr/share/nginx/html

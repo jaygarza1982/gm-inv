@@ -17,12 +17,4 @@ app.use('/api/items', itemsRouter);
 //Serve our static react app
 app.use(express.static('/app/gm-inv-web/build'));
 
-//Create our data folder
-var fs = require('fs');
-fs.mkdir(`${process.env.DATA_FOLDER}`, err => {
-    if (err) {
-        console.log(`!!! Could not create data folder. Reason: "${JSON.stringify(err)}"`);
-    }
-})
-
 module.exports = app;
