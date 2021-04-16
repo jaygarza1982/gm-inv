@@ -1,6 +1,6 @@
 {
   "name": "gm-inv-web",
-  "proxy": "http://gm-inv-api-server:3005",
+  "proxy": "http://localhost:3001",
   "version": "0.1.0",
   "private": true,
   "dependencies": {
