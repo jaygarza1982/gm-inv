@@ -45,7 +45,7 @@ const ItemInput = props => {
     const saveStatus = () => {
         fetch(`/api/items/add-status/${apiKey}/${itemName}/${value}/`).then(resp => {
             if (resp.status === 200) {
-                props.enqueueSnackbar(`Successfully saved ${itemName} as ${value}`, { variant: 'success' });
+                props.enqueueSnackbar(`Successfully saved ${itemName} as ${value}`, { variant: 'success', autoHideDuration: 1000, });
             }
             else {
                 props.enqueueSnackbar(`Could not save. Reason: ${JSON.stringify(resp.statusText)}`, { variant: 'error' });

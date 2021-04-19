@@ -8,7 +8,6 @@ import { Link, withRouter, useParams } from 'react-router-dom';
 
 const useStyles = makeStyles({
     root: {
-        width: '500px',
         position: 'absolute',
         bottom: '0',
         left: '50%',
